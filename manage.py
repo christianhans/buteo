@@ -4,7 +4,7 @@
     Buteo System Monitor
     ====================
     
-    A simple web based system monitor written in Python. 
+    A simple web-based system monitor written in Python. 
     Displays information about your system on a single webpage.
     
     Run this manage script without command line arguments to display usage information.
