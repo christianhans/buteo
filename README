@@ -31,3 +31,10 @@ usage information.
 
 It is not recommended to use the built-in web server in production environments.
 Configure your system's web server to run Buteo via CGI, FastCGI oder mod_wsgi.
+
+Configuration
+=============
+
+Have a look at the buteo.cfg file to configure Buteo. For example it's possible
+to activate authentication, change the template, activate vnStat information or
+to define a refresh interval.
