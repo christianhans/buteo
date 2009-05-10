@@ -1,0 +1,234 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" >
+        <head>
+			<title>Buteo System Monitor</title>
+			<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+			{% if refresh_interval != None %}<meta http-equiv="Refresh" content="{{ refresh_interval }}">{% endif %}
+            
+			<style type="text/css">
+				body {
+					font-family: 'Verdana', 'Deja-Vu Sans', 'Bitstream Vera Sans', sans-serif;
+					margin: 2em;
+					padding: 0;
+				}
+				
+				h1 {
+				    font-family: 'Trebuchet MS', 'Verdana', sans-serif;
+					color: #539E00;
+				}
+							
+				#content table {
+					margin: 5px 0;
+					border-collapse: collapse;
+				}
+
+				#content table td {
+					padding: 4px;
+					border: 1px solid #D4D4D4;
+				}
+				
+				#content tr.header {
+					font-style: italic;
+				}
+				
+				#content table td p {
+					margin: 0;
+					padding: 0;
+				}
+				
+				div.bar {
+				    width: 100px;
+				    border: 1px #539E00 solid;
+				}
+				
+				div.bar p {
+				    background-color: #539E00;
+				}
+
+			</style>
+        </head>
+      
+        <body>
+		
+			<h1>Buteo System Monitor</h1>
+                
+			<div id="content">                
+			
+				<h2>General</h2>
+				<table>
+					<tr>
+						<td>Hostname</td>
+						<td>{{ hostname }}</td>
+					</tr>
+					<tr>
+						<td>Time</td>
+						<td>{{ time }}</td>
+					</tr>
+					<tr>
+						<td>Uptime</td>
+						<td>{{ uptime.0 }} days {{ uptime.1 }} hours {{ uptime.2 }} minutes {{ uptime.3 }} seconds</td>
+					</tr>
+					<tr>
+						<td>Current users</td>
+						<td>{{ usercount }} ({{ users }})</td>
+					</tr>
+					<tr>
+						<td>Load average</td>
+						<td>{{ loadavg }}</td>
+					</tr>
+				</table>
+				
+				<h2>System</h2>
+				<table>
+					<tr>
+						<td>OS</td>
+						<td>{{ system }}</td>
+					</tr>					
+					<tr>
+						<td>Distribution</td>
+						<td>{{ distribution }}</td>
+					</tr>
+					<tr>
+						<td>Kernel Version</td>
+						<td>{{ kernel_version }}</td>
+					</tr>
+					<tr>
+						<td>Kernel Release</td>
+						<td>{{ kernel_release }}</td>
+					</tr>
+					<tr>
+						<td>Architecture</td>
+						<td>{{ architecture }}</td>
+					</tr>
+				</table>
+				
+				<h2>Memory</h2>
+				<table>
+				    <tr class="header">
+				        <td>Type</td>
+				        <td>Total</td>
+				        <td>Free</td>
+				        <td>Used</td>
+				    </tr>
+				    <tr>
+				        <td>Physical Memory</td>
+				        <td>{{ (mem.memtotal/1024)|round(2) }} MB</td>
+				        <td>{{ (mem.memfree/1024)|round(2) }} MB</td>
+				        <td>{{ ((mem.memtotal - mem.memfree)/1024)|round(2) }} MB</td>
+				    </tr>
+				    <tr>
+				        <td>Swap</td>
+				        <td>{{ (mem.swaptotal/1024)|round(2) }} MB</td>
+				        <td>{{ (mem.swapfree/1024)|round(2) }} MB</td>
+				        <td>{{ ((mem.swaptotal - mem.swapfree)/1024)|round(2) }} MB</td>
+				    </tr>
+				</table>
+				
+				{% if filesystems %}
+				<h2>Mounted Filesystems</h2>
+				<table>
+					<tr class="header">
+						<td>Filesystem</td>
+						<td>Type</td>
+						<td>Size</td>
+						<td>Used</td>
+						<td>Available</td>
+						<td>Usage</td>
+						<td>Mounted on</td>
+					</tr>
+					{% for fs in filesystems %}
+					<tr>
+						<td>{{ fs.0 }}</td>
+						<td>{{ fs.1 }}</td>
+						<td>{{ fs.2 }}</td>
+						<td>{{ fs.3 }}</td>
+						<td>{{ fs.4 }}</td>
+						<td><div class="bar"><p style="width: {{ fs.5 }};">{{ fs.5 }}</p></div></td>
+						<td>{{ fs.6 }}</td>
+					</tr>
+					{% endfor %}
+				</table>
+				{% endif %}
+			    
+			    {% if ifaces %}
+				<h2>Network Interfaces</h2>
+				<table>
+					<tr class="header">
+						<td>Interface</td>
+						<td>IP address</td>
+						<td>Broadcast address</td>
+						<td>Netmask</td>
+						<td>MAC address</td>
+					</tr>
+					{% for iface in ifaces %}
+					<tr>
+						<td>{{ iface.ifname }}</td>
+						<td>{{ iface.ipaddr }}</td>
+						<td>{{ iface.brdaddr }}</td>
+						<td>{{ iface.netmask }}</td>
+						<td>{{ iface.macaddr }}</td>
+					</tr>
+					{% endfor %}
+				</table>
+				{% endif %}		
+
+			    {% if vnstat %}
+				<h2>vnStat</h2>
+				{% for device in vnstat %}
+				<h3>{{ device.interface }}</h3>
+				<table>
+					<tr class="header">
+						<td></td>
+						<td>rx</td>
+						<td>tx</td>
+						<td>Total</td>
+					</tr>
+					<tr>
+						<td>Today</td>
+						<td>{{ (device.todayrx/1024)|round(2) }} MB</td>
+						<td>{{ (device.todaytx/1024)|round(2) }} MB</td>
+						<td>{{ ((device.todayrx + device.todaytx)/1024)|round(2) }} MB</td>
+					</tr>
+					<tr>
+						<td>Month</td>
+						<td>{{ (device.monthrx/1024)|round(2) }} MB</td>
+						<td>{{ (device.monthtx/1024)|round(2) }} MB</td>
+						<td>{{ ((device.monthrx + device.monthtx)/1024)|round(2) }} MB</td>
+					</tr>
+					<tr>
+						<td>Total</td>
+						<td>{{ (device.totalrx/1024)|round(2) }} MB</td>
+						<td>{{ (device.totaltx/1024)|round(2) }} MB</td>
+						<td>{{ ((device.totalrx + device.totaltx)/1024)|round(2) }} MB</td>
+					</tr>										
+
+				</table>
+				{% endfor %}
+				{% endif %} 
+			                    
+				<h2>Versions</h2>
+				<table>
+					<tr>
+						<td>Python</td>
+						<td>{{ python_version }}</td>
+					</tr>
+					<tr>
+						<td>Werkzeug</td>
+						<td>{{ werkzeug_version }}</td>
+					</tr>
+					<tr>
+						<td>Jinja</td>
+						<td>{{ jinja_version }}</td>
+					</tr>					
+					<tr>
+						<td>Buteo</td>
+						<td>{{ buteo_version }}</td>
+					</tr>
+				</table>
+		        
+		        <p>Needed {{ exectime }} seconds to display this page.</p>	
+		</div>
+
+        </body>
+</html>
