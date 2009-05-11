@@ -13,10 +13,11 @@
     Licensed under the terms of the GPL v2
 """
 from werkzeug import script
+from os import path
 
 def make_app():
     from buteo import Buteo
-    return Buteo()
+    return Buteo(path.join(path.abspath(path.dirname(__file__)), 'buteo.cfg'))
 
 action_runserver = script.make_runserver(make_app)
 action_shell = script.make_shell(lambda: {'app': make_app()})

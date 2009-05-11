@@ -23,7 +23,7 @@ from jinja2 import __version__ as jinja_version
 from buteo import utils
 
 __author__ = 'Christian Hans'
-__description__ = 'Buteo System Monitor - A simple web based system monitor written in Python.'
+__description__ = 'Buteo System Monitor - A simple web-based system monitor written in Python.'
 __license__ = 'GPLv2'
 __status__ = 'Development'
 __version__ = '0.1 Alpha'
@@ -31,6 +31,7 @@ __version__ = '0.1 Alpha'
 # TODO: Get more detailed distribution data from /etc/*-release
 # TODO: Make it bullet-proof (try...except where required)
 # TODO: Percentage bars for memory
+# TODO: Put configuration parameter in class init
 
 # Future plans:
 # - XML output
@@ -41,12 +42,10 @@ __version__ = '0.1 Alpha'
 # - Quota information
 # - Localization
 
-rootpath = path.abspath(path.dirname(__file__))
-
 class Buteo(object):
 
-    def __init__(self):             
-        self.cfg = utils.get_cfg(path.join(rootpath, 'buteo.cfg'),
+    def __init__(self, cfg_file):             
+        self.cfg = utils.get_cfg(cfg_file,
             {'auth': 0, 'template': 'default', 'template_autoreload': 0, 'refresh_interval': None, 'network': 1, 'vnstat': 0, 'vnstat_ifaces': ''})
        
         self.users = {}

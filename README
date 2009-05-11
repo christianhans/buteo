@@ -16,7 +16,7 @@ installed just do:
 
     # easy_install werkzeug jinja2
     
-Otherwise have a look at http://werkzeug.pocoo.org/ and http://jinja.pocoo.org/
+Otherwise have a look at http://werkzeug.pocoo.org/ and http://jinja.pocoo.org/2/
     
 First run
 =========
