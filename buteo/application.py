@@ -17,34 +17,38 @@ from werkzeug import Request, Response
 from werkzeug.exceptions import HTTPException
 from werkzeug import __version__ as werkzeug_version
 
-from jinja2 import Environment, PackageLoader, Template
+from jinja2 import Environment, FileSystemLoader, Template
 from jinja2 import __version__ as jinja_version
 
 from buteo import utils
 
 __author__ = 'Christian Hans'
-__description__ = 'Buteo System Monitor - A simple web-based system monitor written in Python.'
-__license__ = 'GPLv2'
+__description__ = 'A simple web-based system monitor written in Python.'
+__license__ = 'GPL v2'
 __status__ = 'Development'
 __version__ = '0.1 Alpha'
 
 # TODO: Get more detailed distribution data from /etc/*-release
 # TODO: Make it bullet-proof (try...except where required)
 # TODO: Percentage bars for memory
-# TODO: Put configuration parameter in class init
 
 # Future plans:
-# - XML output
+# - Configuration through a web interface
 # - Easy plugin system (put vnstat and network in external plugins)
 # - Hardware information (external plugin)
+# - XML output (perhaps with a template)
 # - Process list
 # - Services status
 # - Quota information
 # - Localization
+# - Documentation
 
 class Buteo(object):
 
-    def __init__(self, cfg_file):             
+    def __init__(self, cfg_file, template_path):             
+        if cfg_file:
+            print ' * Using %s as configuration file.' % cfg_file  
+        
         self.cfg = utils.get_cfg(cfg_file,
             {'auth': 0, 'template': 'default', 'template_autoreload': 0, 'refresh_interval': None, 'network': 1, 'vnstat': 0, 'vnstat_ifaces': ''})
        
@@ -61,8 +65,10 @@ class Buteo(object):
                 except:
                     pass                    
         
-        self.tmplenv = Environment(loader=PackageLoader('buteo', 'templates'), auto_reload=self.cfg['template_autoreload'])
+        self.tmplenv = Environment(loader=FileSystemLoader(template_path), auto_reload=self.cfg['template_autoreload'])
         self.template = self.tmplenv.get_template('%s.html' % self.cfg['template'])
+        if self.template.filename:
+            print ' * Using %s as template file.' % self.template.filename
 
     def check_auth(self, username, password):
         return username in self.users and self.users[username] == password

@@ -35,6 +35,7 @@ def get_cfg(path, default_options={}):
                 name, value = line.split('=', 1)
                 options[name.rstrip().lower()] = value.strip()
     except:
+        print ' * ERROR: Failed to parse the configuration file. Using default options now.'
         pass
     
     # Make sure all default config keys are defined
