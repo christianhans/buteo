@@ -49,7 +49,7 @@ def _runserver(config='', templates='', hostname='localhost', port=5000, use_rel
             if path.exists(templates):
                 template_paths.append(templates)
             else:
-                print ' * ERROR: The specified templates path wasn\'t found'
+                print ' * ERROR: The specified template path wasn\'t found'
                 sys.exit(1)
         else:        
             if path.exists(path.join(path.dirname(__file__), 'templates')):

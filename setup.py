@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 import sys
 from glob import glob
-from distutils.core import setup
 
-if sys.version_info < (2, 4):
-    print 'ERROR: Buteo requires at least Python 2.4 to run.'
-    sys.exit(1)
+try:
+    from setuptools import setup
+except ImportError:
+    from distutils.core import setup
 
 setup(
     name = 'Buteo',
