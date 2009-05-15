@@ -38,7 +38,7 @@ For a persistent installation use the setup.py script:
 
     # python setup.py install
 
-Now all files and the management script are installed in your system:
+Now all files and the management script are installed on your system:
 
     $ manage-buteo.py runserver
 
@@ -55,5 +55,6 @@ Production environment
 It's not recommended to use the built-in web server in production environments.
 
 Configure your system's web server to run Buteo via CGI, FastCGI oder mod_wsgi
-(Apache). Example scripts for a web server setup can be found in the scripts folder.
-See http://werkzeug.pocoo.org/documentation/0.5/deployment/ for further explanation.
+(Apache). Example scripts for a web server setup can be found in 
+/usr/share/buteo/scripts. See http://werkzeug.pocoo.org/documentation/0.5/deployment/
+for further explanation.

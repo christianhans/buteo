@@ -67,6 +67,7 @@ class Buteo(object):
         
         self.tmplenv = Environment(loader=FileSystemLoader(template_path), auto_reload=self.cfg['template_autoreload'])
         self.template = self.tmplenv.get_template('%s.html' % self.cfg['template'])
+        
         if self.template.filename:
             print ' * Using %s as template file.' % self.template.filename
 
