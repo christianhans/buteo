@@ -12,9 +12,9 @@ At the moment only Linux systems are supported.
 Required modules
 ================
 
-In order to use Buteo you have to install the Werkzeug and Jinja2 modules
-first. If you have setuptools (http://pypi.python.org/pypi/setuptools)
-installed just do:
+In order to use Buteo you have to install the Werkzeug and Jinja2 modules first.
+If you have setuptools (http://pypi.python.org/pypi/setuptools) installed just
+do:
 
     # easy_install werkzeug jinja2
     
@@ -23,8 +23,9 @@ Otherwise have a look at http://werkzeug.pocoo.org/ and http://jinja.pocoo.org/2
 First run
 =========
 
-You can run Buteo also without a complete installation. For testing purposes a simple
-web server is included. To start the test server use the manage-buteo.py script:
+You can run Buteo also without a complete installation. For testing purposes a
+simple web server is included. To start the test server use the manage-buteo.py
+script:
 
     $ python manage-buteo.py runserver
     
@@ -38,7 +39,7 @@ For a persistent installation use the setup.py script:
 
     # python setup.py install
 
-Now all files and the management script are installed on your system:
+Now all required files and the management script are installed on your system:
 
     $ manage-buteo.py runserver
 
@@ -56,5 +57,7 @@ It's not recommended to use the built-in web server in production environments.
 
 Configure your system's web server to run Buteo via CGI, FastCGI oder mod_wsgi
 (Apache). Example scripts for a web server setup can be found in 
-/usr/share/buteo/scripts. See http://werkzeug.pocoo.org/documentation/0.5/deployment/
-for further explanation.
+/usr/share/buteo/scripts.
+
+See http://werkzeug.pocoo.org/documentation/0.5/deployment/ for further
+explanation.

@@ -22,12 +22,6 @@ from jinja2 import __version__ as jinja_version
 
 from buteo import utils
 
-__author__ = 'Christian Hans'
-__description__ = 'A simple web-based system monitor written in Python.'
-__license__ = 'GPL v2'
-__status__ = 'Development'
-__version__ = '0.1 Alpha'
-
 # TODO: Get more detailed distribution data from /etc/*-release
 # TODO: Make it bullet-proof (try...except where required)
 # TODO: Percentage bars for memory
@@ -46,6 +40,9 @@ __version__ = '0.1 Alpha'
 class Buteo(object):
 
     def __init__(self, cfg_file, template_path):             
+        from buteo import __version__
+        self.version = __version__
+        
         if cfg_file:
             print ' * Using %s as configuration file.' % cfg_file  
         
@@ -54,7 +51,7 @@ class Buteo(object):
        
         self.users = {}
         self.realm = 'login required' 
-        
+      
         if int(self.cfg['auth']) == 1:
             users = self.cfg['auth_users'].split(',')
             passwords = self.cfg['auth_passwd'].split(',')
@@ -79,7 +76,6 @@ class Buteo(object):
                         {'WWW-Authenticate': 'Basic realm="%s"' % self.realm})
 
     def dispatch_request(self, request):       
-        # Get configuration
         if int(self.cfg['vnstat']) == 1:
             from  buteo.vnstat import get_vnstat
             vnstatdata = get_vnstat(self.cfg['vnstat_ifaces'].split(','))
@@ -91,9 +87,9 @@ class Buteo(object):
             networkdata = get_ifaces()
         else:
             networkdata = {}
-            
+           
         users = Popen('users', shell=True, stdout=PIPE).stdout.read().split()
-        un = uname() 
+        un = uname()
    
         try:
             response = Response(mimetype='text/html')
@@ -123,11 +119,11 @@ class Buteo(object):
 		        python_version = version,
 		        werkzeug_version = werkzeug_version,
 		        jinja_version = jinja_version,
-		        buteo_version = __version__,
+		        buteo_version = self.version,
 		        
 		        exectime = round(time()-self.starttime, 4)
             )
-                   
+            
             return response
             
         except HTTPException, e:
