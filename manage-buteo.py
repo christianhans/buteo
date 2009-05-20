@@ -17,11 +17,11 @@ from os import path
 from werkzeug import script
 
 # own runserver function, since additional command line arguments are required
-def _runserver(config='', templates='', hostname='localhost', port=5000, use_reloader=False, use_debugger=False,
-                use_evalex=True, threaded=False, processes=1, static_files=None, extra_files=None):
-    def action(config=('c', config), templates=('t', templates), hostname=('h', hostname), port=('p', port),
-               reloader=use_reloader, debugger=use_debugger,
-               evalex=use_evalex, threaded=threaded, processes=processes):
+def _runserver(config='', plugins='', templates='', hostname='localhost', port=5000, use_reloader=False,
+                use_debugger=False, use_evalex=True, threaded=False, processes=1, static_files=None, extra_files=None):
+    def action(config=('c', config), plugins=('a', plugins), templates=('t', templates), hostname=('h', hostname),
+                port=('p', port), reloader=use_reloader, debugger=use_debugger,  evalex=use_evalex, threaded=threaded,
+                processes=processes):
         """Start a new development server."""    
         
         # get path of configuration file
@@ -41,6 +41,24 @@ def _runserver(config='', templates='', hostname='localhost', port=5000, use_rel
             else:
                 print ' * ERROR: No configuration file was found.'
                 print ' * Specify a configuration file with the -c option.'           
+          
+        # get path of plugins
+        plugin_path = None
+        if plugins != '':
+            plugins = path.realpath(path.expanduser(plugins))
+            if path.exists(plugins):
+                plugin_path = plugins
+            else:
+                print ' * ERROR: The specified plugin path wasn\'t found.'
+                sys.exit(1)
+        else:               
+            if path.exists(path.join(path.dirname(__file__), 'plugins')):
+                plugin_path = path.abspath(path.join(path.dirname(__file__), 'plugins'))
+            elif path.exists('/usr/share/buteo/plugins'):
+                plugin_path = '/usr/share/buteo/plugins'
+            else:
+                print ' * ERROR: No plugin directory was found.'
+                print ' * Specify a plugin directory with the -a option.'    
 
         # get paths of templates
         template_paths = []        
@@ -49,7 +67,7 @@ def _runserver(config='', templates='', hostname='localhost', port=5000, use_rel
             if path.exists(templates):
                 template_paths.append(templates)
             else:
-                print ' * ERROR: The specified template path wasn\'t found'
+                print ' * ERROR: The specified template path wasn\'t found.'
                 sys.exit(1)
         else:        
             if path.exists(path.join(path.dirname(__file__), 'templates')):
@@ -63,7 +81,7 @@ def _runserver(config='', templates='', hostname='localhost', port=5000, use_rel
          
         from buteo import Buteo
         from werkzeug.serving import run_simple
-        app = Buteo(cfg_file, template_paths)
+        app = Buteo(cfg_file, plugin_path, template_paths)
         run_simple(hostname, port, app, reloader, debugger, evalex,
                    extra_files, 1, threaded, processes, static_files)
     return action

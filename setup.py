@@ -20,6 +20,7 @@ setup(
     scripts = ['manage-buteo.py'],
     data_files = [
         ('/etc', ['buteo.cfg']),
+        ('/usr/share/buteo/plugins', glob('plugins/*.py')), 
         ('/usr/share/buteo/templates', glob('templates/*.html')),        
         ('/usr/share/buteo/scripts', ['scripts/buteo.cgi', 'scripts/buteo.fcgi']),        
     ],
