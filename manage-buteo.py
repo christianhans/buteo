@@ -87,7 +87,7 @@ def _runserver(config='', plugins='', templates='', hostname='localhost', port=5
     return action
 
 action_runserver = _runserver()
-action_shell = script.make_shell(lambda: {'app': make_app()})
+action_shell = script.make_shell(lambda: {'app': _runserver()})
 
 if __name__ == '__main__':       
     script.run()   
