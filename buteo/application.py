@@ -23,13 +23,16 @@ from jinja2 import __version__ as jinja_version
 from buteo import utils
 from buteo import plugins
 
+# TODO. Perhaps remove some math operations from templates in order to improve performance
+# TODO: Improve handling of plugin exceptions (completely leave out plugin if a exception occured)
 # TODO: Improve handling of non-existent options for plugins
-# TODO: Get more detailed distribution data from /etc/*-release
 # TODO: Make it bullet-proof (try...except where required)
 # TODO: Percentage bars for memory
+# TODO: Improve layout of percentage bars
 
 # Future plans:
 # - Configuration through a web interface
+# - Get more detailed distribution data from /etc/*-release
 # - Hardware information plugin
 # - XML output (perhaps with a template)
 # - Process list plugin
@@ -112,10 +115,6 @@ class Buteo(object):
             'kernel_release': un[3],
             'architecture': un[4],				
             
-            'mem': utils.get_meminfo(),	    
-
-            'filesystems': utils.get_filesystems(),	    
-
             'python_version': version,
             'werkzeug_version': werkzeug_version,
             'jinja_version': jinja_version,
@@ -130,7 +129,7 @@ class Buteo(object):
                 try:
                     data = plugin.get_data(self.cfg)
                 except Exception as inst:
-                    print ' * ERROR: %s. Skipping this plugin.' % inst
+                    print ' * ERROR: %s. Skipping plugin %r.' % (inst, plugin.__class__.__name__)
                     continue
                 
                 for key in data:

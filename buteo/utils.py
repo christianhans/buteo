@@ -9,7 +9,6 @@
     Licensed under the terms of the GPL v2
 """
 from os import path
-from subprocess import Popen, PIPE
 
 # TODO: Add these distributions:
 #Arch Linux: /etc/arch-release
@@ -86,24 +85,6 @@ def get_loadavg():
     loadavg = file('/proc/loadavg').read().split()
     return '%s %s %s' % (loadavg[0], loadavg[1], loadavg[2])
     
-def get_meminfo():
-    mem = {}
-    for i in file('/proc/meminfo').readlines():
-        try:
-            isplit = i.split()
-            mem[isplit[0].rstrip(':').lower()] = int(isplit[1])            
-        except:
-	        pass	        
-    return mem
-
-def get_filesystems():	
-	out = Popen('df -h -T', shell=True, stdout=PIPE).stdout.readlines()
-	out.remove(out[0])
-	for i in xrange(len(out)):
-		out[i] = out[i].split()
-		
-	return out
-
 def get_distribution():	
 	for distribution, dpath in distributions.iteritems():
 		if path.exists(dpath):
