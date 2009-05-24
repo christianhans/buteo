@@ -49,9 +49,6 @@ class Buteo(object):
         self.version = __version__
         
         # Get configuration
-        #if cfg_file:
-        #    print ' * Using %s as configuration file.' % cfg_file             
-
         self.cfg = utils.get_cfg(cfg_file,
             {'plugins': '', 'auth': 0, 'template': 'default', 'template_autoreload': 0, 'refresh_interval': None, 'vnstat_ifaces': ''})
         
@@ -59,12 +56,8 @@ class Buteo(object):
         self.enabled_plugins = []
 
         if plugin_path and path.exists(plugin_path):
-            #print ' * Using %s as plugin directory.' % plugin_path
             self.enabled_plugins = self.cfg['plugins'].split()
             plugins.init_plugin_system({'plugin_path': plugin_path, 'plugins': self.enabled_plugins})            
-        #else:
-            #print ' * WARNING: Plugin system is diabled, since no plugin directory has been found.'
-              
           
         # Get authentication data               
         self.users = {}
@@ -84,9 +77,6 @@ class Buteo(object):
         self.tmplenv = Environment(loader=FileSystemLoader(template_path), auto_reload=self.cfg['template_autoreload'])
         self.template = self.tmplenv.get_template('%s.html' % self.cfg['template'])
         
-        #if self.template.filename:
-            #print ' * Using %s as template file.' % self.template.filename
-
     def check_auth(self, username, password):
         return username in self.users and self.users[username] == password
 

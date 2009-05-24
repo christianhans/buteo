@@ -41,7 +41,10 @@ def _runserver(config='', plugins='', templates='', hostname='localhost', port=5
             else:
                 print ' * ERROR: No configuration file was found.'
                 print ' * Specify a configuration file with the -c option.'           
-          
+        
+        if cfg_file:
+            print ' * Using %s as configuration file.' % cfg_file
+  
         # get path of plugins
         plugin_path = None
         if plugins != '':
@@ -59,6 +62,11 @@ def _runserver(config='', plugins='', templates='', hostname='localhost', port=5
             else:
                 print ' * ERROR: No plugin directory was found.'
                 print ' * Specify a plugin directory with the -a option.'    
+
+        if plugin_path:
+            print ' * Using %s as plugin directory.' % plugin_path
+        else:
+            print ' * WARNING: Plugin system is diabled, since no plugin directory has been found.'
 
         # get paths of templates
         template_paths = []        
@@ -78,6 +86,8 @@ def _runserver(config='', plugins='', templates='', hostname='localhost', port=5
         if template_paths == []:
             print ' * ERROR: No template files have been found. Specify a template path with the -t option.'
             sys.exit(1)
+        else:
+            print ' * Using %s as template path.' % template_paths
          
         from buteo import Buteo
         from werkzeug.serving import run_simple
