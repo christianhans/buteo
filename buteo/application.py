@@ -23,6 +23,7 @@ from jinja2 import __version__ as jinja_version
 from buteo import utils
 from buteo import plugins
 
+# TODO: Add ability for plugins to add a version string
 # TODO. Perhaps remove some math operations from templates in order to improve performance
 # TODO: Improve handling of plugin exceptions (completely leave out plugin if a exception occured)
 # TODO: Improve handling of non-existent options for plugins
