@@ -8,10 +8,9 @@
     Copyright (c) 2009 Christian Hans
     Licensed under the terms of the GPL v2
 """
-from os import path, uname
+from os import path
 from sys import version
-from time import time, ctime
-from subprocess import Popen, PIPE
+from time import time
 
 from werkzeug import Request, Response
 from werkzeug.exceptions import HTTPException
@@ -96,34 +95,16 @@ class Buteo(object):
                         {'WWW-Authenticate': 'Basic realm="%s"' % self.realm})
 
     def dispatch_request(self, request):
-        # Process variables         
-        users = Popen('users', shell=True, stdout=PIPE).stdout.read().split()
-        un = uname()
-        
+        # Process variables        
         self.var_dict = {
             'refresh_interval': self.cfg['refresh_interval'],
-                 
-            'hostname': un[1],
-            'time': ctime(),
-            'uptime': utils.get_uptime(),
-            'users': ' '.join(users),
-            'usercount': len(users),
-            'loadavg': utils.get_loadavg(),
-
-            'system': un[0],
-            'distribution': utils.get_distribution(),
-            'kernel_version': un[2],
-            'kernel_release': un[3],
-            'architecture': un[4],				
-            
+                        
             'python_version': version,
             'werkzeug_version': werkzeug_version,
             'jinja_version': jinja_version,
-            'buteo_version': self.version,
-             
-            'exectime': round(time()-self.starttime, 4)
+            'buteo_version': self.version
         }
-        
+
         # add data from plugins
         if self.enabled_plugins != []:
             for plugin in plugins.get_plugins():
@@ -136,6 +117,8 @@ class Buteo(object):
                 for key in data:
                     if not key in self.var_dict:
                         self.var_dict[key] = data[key]
+                        
+        self.var_dict['exectime'] = round(time()-self.starttime, 4)                
               
         try:
             response = Response(mimetype='text/html')                           

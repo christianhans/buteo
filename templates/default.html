@@ -54,56 +54,60 @@
 			<h1>Buteo System Monitor</h1>
                 
 			<div id="content">                
-			
+			    
+			    {% if general %}
 				<h2>General</h2>
 				<table>
 					<tr>
 						<td>Hostname</td>
-						<td>{{ hostname }}</td>
+						<td>{{ general.hostname }}</td>
 					</tr>
 					<tr>
 						<td>Time</td>
-						<td>{{ time }}</td>
+						<td>{{ general.time }}</td>
 					</tr>
 					<tr>
 						<td>Uptime</td>
-						<td>{{ uptime.0 }} days {{ uptime.1 }} hours {{ uptime.2 }} minutes {{ uptime.3 }} seconds</td>
+						<td>{{ general.uptime.0 }} days {{ general.uptime.1 }} hours {{ general.uptime.2 }} minutes {{ general.uptime.3 }} seconds</td>
 					</tr>
 					<tr>
 						<td>Current users</td>
-						<td>{{ usercount }} ({{ users }})</td>
+						<td>{{ general.usercount }} ({{ general.users }})</td>
 					</tr>
 					<tr>
 						<td>Load average</td>
-						<td>{{ loadavg }}</td>
+						<td>{{ general.loadavg }}</td>
 					</tr>
 				</table>
+				{% endif %}
 				
+				{% if system %}
 				<h2>System</h2>
 				<table>
 					<tr>
 						<td>OS</td>
-						<td>{{ system }}</td>
+						<td>{{ system.system }}</td>
 					</tr>					
 					<tr>
 						<td>Distribution</td>
-						<td>{{ distribution }}</td>
+						<td>{{ system.distribution }}</td>
 					</tr>
 					<tr>
 						<td>Kernel Version</td>
-						<td>{{ kernel_version }}</td>
+						<td>{{ system.kernel_version }}</td>
 					</tr>
 					<tr>
 						<td>Kernel Release</td>
-						<td>{{ kernel_release }}</td>
+						<td>{{ system.kernel_release }}</td>
 					</tr>
 					<tr>
 						<td>Architecture</td>
-						<td>{{ architecture }}</td>
+						<td>{{ system.architecture }}</td>
 					</tr>
 				</table>
+				{% endif %}
 			
-                {% if mem %}	
+                {% if memory %}	
 				<h2>Memory</h2>
 				<table>
 				    <tr class="header">
@@ -114,15 +118,15 @@
 				    </tr>
 				    <tr>
 				        <td>Physical Memory</td>
-				        <td>{{ (mem.memtotal/1024)|round(2) }} MB</td>
-				        <td>{{ (mem.memfree/1024)|round(2) }} MB</td>
-				        <td>{{ ((mem.memtotal - mem.memfree)/1024)|round(2) }} MB</td>
+				        <td>{{ (memory.memtotal/1024)|round(2) }} MB</td>
+				        <td>{{ (memory.memfree/1024)|round(2) }} MB</td>
+				        <td>{{ ((memory.memtotal - memory.memfree)/1024)|round(2) }} MB</td>
                     </tr>
 				    <tr>
 				        <td>Swap</td>
-				        <td>{{ (mem.swaptotal/1024)|round(2) }} MB</td>
-				        <td>{{ (mem.swapfree/1024)|round(2) }} MB</td>
-				        <td>{{ ((mem.swaptotal - mem.swapfree)/1024)|round(2) }} MB</td>
+				        <td>{{ (memory.swaptotal/1024)|round(2) }} MB</td>
+				        <td>{{ (memory.swapfree/1024)|round(2) }} MB</td>
+				        <td>{{ ((memory.swaptotal - memory.swapfree)/1024)|round(2) }} MB</td>
 				    </tr>
 				</table>
                 {% endif %}
@@ -153,7 +157,7 @@
 				</table>
 				{% endif %}
 			    
-			    {% if ifaces %}
+			    {% if network %}
 				<h2>Network Interfaces</h2>
 				<table>
 					<tr class="header">
@@ -163,7 +167,7 @@
 						<td>Netmask</td>
 						<td>MAC address</td>
 					</tr>
-					{% for iface in ifaces %}
+					{% for iface in network %}
 					<tr>
 						<td>{{ iface.ifname }}</td>
 						<td>{{ iface.ipaddr }}</td>

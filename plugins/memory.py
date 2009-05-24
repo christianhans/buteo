@@ -21,4 +21,4 @@ class MemoryPlugin(Plugin):
             except:
                 pass
 
-        return {'mem': mem}
+        return {'memory': mem}

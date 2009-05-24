@@ -76,4 +76,4 @@ class NetworkPlugin(Plugin):
                 if not key in iface:
                     iface[key] = default_iface[key]            
               
-        return {'ifaces': ifaces}
+        return {'network': ifaces}
