@@ -13,4 +13,4 @@ TEMPLATE_PATH = '/usr/share/buteo/templates'
 # use this if you have more than one directory with templates
 #TEMPLATE_PATH = ['/path/to/templates', '/path/to/other/templates']
 
-app = Buteo(CFG_FILE, PLUGIN_PATH, TEMPLATE_PATH)
+application = Buteo(CFG_FILE, PLUGIN_PATH, TEMPLATE_PATH)
