@@ -102,7 +102,8 @@
 						<td>{{ architecture }}</td>
 					</tr>
 				</table>
-				
+			
+                {% if mem %}	
 				<h2>Memory</h2>
 				<table>
 				    <tr class="header">
@@ -124,6 +125,7 @@
 				        <td>{{ ((mem.swaptotal - mem.swapfree)/1024)|round(2) }} MB</td>
 				    </tr>
 				</table>
+                {% endif %}
 				
 				{% if filesystems %}
 				<h2>Mounted Filesystems</h2>
