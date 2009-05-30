@@ -1,0 +1,19 @@
+TODO:
+ - Add ability for plugins to add a version string
+ - Perhaps remove some math operations from templates in order to improve performance
+ - Improve handling of plugin exceptions (completely leave out plugin if a exception occured)
+ - Improve handling of non-existent options for plugins
+ - Make it bullet-proof (try...except where required)
+ - Percentage bars for memory
+ - Improve layout of percentage bars
+
+Future plans:
+ - Configuration through a web interface
+ - Get more detailed distribution data from /etc/*-release
+ - Hardware information plugin
+ - XML output (perhaps with a template)
+ - Process list plugin
+ - Services status plugin
+ - Quota information plugin
+ - Localization
+ - Documentation

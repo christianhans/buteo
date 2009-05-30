@@ -22,25 +22,6 @@ from jinja2 import __version__ as jinja_version
 from buteo import utils
 from buteo import plugins
 
-# TODO: Add ability for plugins to add a version string
-# TODO. Perhaps remove some math operations from templates in order to improve performance
-# TODO: Improve handling of plugin exceptions (completely leave out plugin if a exception occured)
-# TODO: Improve handling of non-existent options for plugins
-# TODO: Make it bullet-proof (try...except where required)
-# TODO: Percentage bars for memory
-# TODO: Improve layout of percentage bars
-
-# Future plans:
-# - Configuration through a web interface
-# - Get more detailed distribution data from /etc/*-release
-# - Hardware information plugin
-# - XML output (perhaps with a template)
-# - Process list plugin
-# - Services status plugin
-# - Quota information plugin
-# - Localization
-# - Documentation
-
 class Buteo(object):
 
     def __init__(self, cfg_file, plugin_path, template_path):             
