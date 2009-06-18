@@ -1,11 +1,13 @@
 TODO:
+ - Dont use "as" statement, so that buteo will run with python versions < 2.6
+ - Don't import werkzeug in setup script, so that setuptools can install it
  - Add ability for plugins to add a version string
  - Perhaps remove some math operations from templates in order to improve performance
  - Improve handling of plugin exceptions (completely leave out plugin if a exception occured)
  - Improve handling of non-existent options for plugins
  - Make it bullet-proof (try...except where required)
  - Percentage bars for memory
- - Improve layout of percentage bars
+ - Improve design of percentage bars
 
 Future plans:
  - Configuration through a web interface
