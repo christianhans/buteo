@@ -11,6 +11,7 @@ TODO:
 
 Future plans:
  - Configuration through a web interface
+ - lm_sensors support
  - Get more detailed distribution data from /etc/*-release
  - Hardware information plugin
  - XML output (perhaps with a template)
