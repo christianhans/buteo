@@ -5,10 +5,9 @@
     
     This plugin provides system information.    
         
-    Copyright (c) 2009 Christian Hans
+    Copyright (c) 2010 Christian Hans
     Licensed under the terms of the GPL v2
 """
-from os import path
 from buteo.plugins import Plugin
 import platform
 
