@@ -11,6 +11,6 @@
     Copyright (c) 2009 Christian Hans
     Licensed under the terms of the GPL v2
 """
-__version__ = '0.1 Alpha'
+__version__ = '0.1'
 
 from buteo.application import Buteo

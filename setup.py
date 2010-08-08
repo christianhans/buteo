@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 import sys
 from glob import glob
-from buteo import __version__
 
 try:
     from setuptools import setup
@@ -10,7 +9,7 @@ except ImportError:
 
 setup(
     name = 'Buteo',
-    version = __version__,
+    version = '0.1',
     description = 'A simple web-based system monitor written in Python.',
     license = 'GPL v2',
     author = 'Christian Hans',
@@ -25,7 +24,7 @@ setup(
         ('/usr/share/buteo/scripts', ['scripts/buteo.cgi', 'scripts/buteo.fcgi']),        
     ],
     classifiers = [
-        'Development Status :: 2 - Pre-Alpha',
+        'Development Status :: 3 - Alpha',
         'Environment :: Web Environment',
         'Intended Audience :: System Administrators',
         'License :: OSI Approved :: GNU General Public License (GPL)',

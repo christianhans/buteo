@@ -1,6 +1,4 @@
 TODO:
- - Dont use "as" statement, so that buteo will run with python versions < 2.6
- - Don't import werkzeug in setup script, so that setuptools can install it
  - Add ability for plugins to add a version string
  - Perhaps remove some math operations from templates in order to improve performance
  - Improve handling of plugin exceptions (completely leave out plugin if a exception occured)
@@ -12,7 +10,6 @@ TODO:
 Future plans:
  - Configuration through a web interface
  - lm_sensors support
- - Get more detailed distribution data from /etc/*-release
  - Hardware information plugin
  - XML output (perhaps with a template)
  - Process list plugin

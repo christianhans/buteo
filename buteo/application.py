@@ -12,12 +12,12 @@ from os import path
 from sys import version
 from time import time
 
+import werkzeug
 from werkzeug import Request, Response
 from werkzeug.exceptions import HTTPException
-from werkzeug import __version__ as werkzeug_version
 
+import jinja2
 from jinja2 import Environment, FileSystemLoader, Template
-from jinja2 import __version__ as jinja_version
 
 from buteo import utils
 from buteo import plugins
@@ -71,8 +71,8 @@ class Buteo(object):
             'refresh_interval': self.cfg['refresh_interval'],
                         
             'python_version': version,
-            'werkzeug_version': werkzeug_version,
-            'jinja_version': jinja_version,
+            'werkzeug_version': werkzeug.__version__,
+            'jinja_version': jinja2.__version__,
             'buteo_version': self.version
         }
 
