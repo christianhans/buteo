@@ -11,7 +11,7 @@ Buteo is supplied with a lot of plugins, like a plugin for network details or a
 plugin that lists vnStat data.
 
 Requirements
-============
+------------
 
 Currently Buteo only supports Linux systems. In order to use Buteo a recent
 version of Python 2.x is required. Python should normally be supplied by your
@@ -23,7 +23,7 @@ setuptools on your system just do:
     # easy_install werkzeug jinja2
 
 First run
-=========
+---------
 
 Running Buteo is possible without a complete installation. For testing purposes
 a simple web server is included. To start the test server use the
@@ -42,7 +42,7 @@ Run the manage-buteo.py script with the --help option to get more detailed usage
 information.
 
 Installation
-============
+------------
 
 Although a installation isn't necessary, a persistent installation might be
 considered for production environments. Just use the supplied setup.py script:
@@ -56,14 +56,14 @@ After installation the manage-buteo.py script can be used system-wide:
     $ manage-buteo.py runserver
 
 Configuration
-=============
+-------------
 
 Have a look at the /etc/buteo.cfg file to configure Buteo. For example it's
 possible to activate authentication, change the template, activate vnStat
 information or to define a refresh interval.
 
 Production environment
-======================
+----------------------
 
 It's not recommended to use the built-in web server in larger production
 environments. For few traffic, the built-in web server is completely fine. To
